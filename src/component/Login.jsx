@@ -10,21 +10,23 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
-
     try {
-      const response = await axios.post(API, formData);
+      const response = await axios.post(API, { email, password }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
       const resp = response.data;
 
       if (resp.ok && resp.token) {
-        console.log('JWT Token:', resp.token); // ✅ Show token in console
+        console.log('JWT Token:', resp.token);
         alert('Login Successful');
 
-        localStorage.setItem('token', resp.token); // ✅ Save JWT
-        localStorage.setItem('user', JSON.stringify(resp.user)); // Save user
+        localStorage.setItem('token', resp.token);
+        localStorage.setItem('user', JSON.stringify(resp.user));
 
+        // Redirect if needed
         // window.location.href = '/home';
       } else {
         alert('Invalid Credentials');
