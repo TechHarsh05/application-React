@@ -23,6 +23,9 @@ const Login = () => {
 
       const { jwtToken, username } = response.data;
 
+      if (!jwtToken) {
+        throw new Error("Invalid response from server: missing token");
+      }
       // Store token and user information
       localStorage.setItem('token', jwtToken);
       localStorage.setItem('user', JSON.stringify({ username }));
