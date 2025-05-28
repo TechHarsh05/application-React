@@ -35,10 +35,13 @@ const SignUp = () => {
         formData.append("file", file);
 
         console.log("Form Data : ", formData);
+
+        // const user = {name, email, password, phone}
         
         try {
           
-          const response = await axios.post('http://localhost:8383/labour-link/signup', formData);
+          const response = await axios.post('http://localhost:8383/auth/signup', formData);
+          // const response = await axios.post('http://localhost:8383/auth/signup', user);
           
           
           // You can check the response and process it as needed
@@ -81,7 +84,7 @@ const SignUp = () => {
         onChange={(e)=>setEmail(e.target.value)}
         /><br/>
 
-<input
+        <input
         type="password"
         placeholder="Enter Your Password"
         value={password}

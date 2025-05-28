@@ -3,37 +3,40 @@ import { useState } from 'react';
 import style from './login.module.css';
 
 const Login = () => {
-  const API = 'http://localhost:8383/loggin';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); // State to manage loading indicator
+  const [errorMessage, setErrorMessage] = useState(''); // State for error messages
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setErrorMessage(''); // Clear previous error message
+    setLoading(true); // Set loading to true while processing
+
     try {
-      const response = await axios.post(API, { email, password }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      // Send request to login API
+      const response = await axios.post('http://localhost:8383/auth/login', {
+        email,
+        password,
       });
 
-      const resp = response.data;
+      const { jwtToken, username } = response.data;
 
-      if (resp.ok && resp.token) {
-        console.log('JWT Token:', resp.token);
-        alert('Login Successful');
+      // Store token and user information
+      localStorage.setItem('token', jwtToken);
+      localStorage.setItem('user', JSON.stringify({ username }));
 
-        localStorage.setItem('token', resp.token);
-        localStorage.setItem('user', JSON.stringify(resp.user));
+      alert('Login Successful!');
+      window.location.href = '/dashboard'; // Redirect user after login
 
-        // Redirect if needed
-        // window.location.href = '/home';
-      } else {
-        alert('Invalid Credentials');
-      }
     } catch (error) {
-      console.log('Error:', error);
-      alert('Login failed');
+      // Handle errors gracefully
+      console.error("Login Error:", error);
+      const errorResponse = error.response?.data?.error || 'Login failed. Please try again.';
+      setErrorMessage(errorResponse);
+    } finally {
+      setLoading(false); // Stop the loading spinner
     }
   };
 
@@ -41,6 +44,9 @@ const Login = () => {
     <div className={style.loginContainer}>
       <form onSubmit={handleSubmit} className={style.loginForm}>
         <h2>Login</h2>
+
+        {errorMessage && <div className={style.error}>{errorMessage}</div>}
+
         <input
           type="email"
           placeholder="Enter Your Email"
@@ -55,7 +61,9 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
     </div>
   );
