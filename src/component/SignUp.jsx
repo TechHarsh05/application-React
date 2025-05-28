@@ -41,7 +41,6 @@ const SignUp = () => {
         try {
           
           const response = await axios.post('http://localhost:8383/auth/signup', formData);
-          // const response = await axios.post('http://localhost:8383/auth/signup', user);
           
           
           // You can check the response and process it as needed
