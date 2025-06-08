@@ -4,11 +4,26 @@ import Login from './component/Login';
 import SignUp from './component/SignUp';
 import Dashboard from './pages/Dashboard';
 import HomePage from './pages/HomePage';
+import User from './pages/User';
 import './App.css';
 
 const NavBar = ({ isLoggedIn, handleLogout }) => {
-  const user = JSON.parse(localStorage.getItem('user'));
-          const username = user?.username;
+      const [user, setUserData] = useState("");
+
+  useEffect(() => {
+    const userDetails = JSON.parse(localStorage.getItem("user"));
+    const userData = userDetails?.user;
+    if (userData) {
+      setUserData({
+        ...userData,
+        userImage: `data:image/jpeg;base64,${userData.userImage}`
+      });
+    }
+  }, []);
+
+  // console.log(userData);
+  
+            
   return (
     <nav>
       {!isLoggedIn ? (
@@ -23,9 +38,16 @@ const NavBar = ({ isLoggedIn, handleLogout }) => {
         </>
       ) : (
         <>
-          {username}
-          <Link to="/dashboard">Dashboard</Link>
-          <button onClick={handleLogout}>Logout</button>
+      
+      <Link to="/dashboard/user">{
+        <img
+          src={user.userImage}
+          alt="User"
+          style={{ width: 65, height: 65, borderRadius: "50%" }}
+        />    
+      }</Link>
+        <Link to="/dashboard">Dashboard</Link>
+        <button onClick={handleLogout}>Logout</button>
         </>
       )}
     </nav>
@@ -52,6 +74,7 @@ const App = () => {
         <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path='/dashboard/user' element={<User/>} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
@@ -62,3 +85,4 @@ const App = () => {
 };
 
 export default App;
+

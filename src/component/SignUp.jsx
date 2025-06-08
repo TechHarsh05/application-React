@@ -66,6 +66,7 @@ const SignUp = () => {
           placeholder="Enter Your Name"
           value={name}
           autoFocus
+          required
           onChange={(e) => setName(e.target.value)}
         /><br />
 
@@ -78,6 +79,7 @@ const SignUp = () => {
           type="email"
           placeholder="Enter Your Email"
           value={email}
+          required
           onChange={(e) => setEmail(e.target.value)}
         /><br />
 
@@ -85,6 +87,7 @@ const SignUp = () => {
           type="password"
           placeholder="Enter Your Password"
           value={password}
+          required
           onChange={(e) => setPassword(e.target.value)}
         /><br />
 

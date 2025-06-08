@@ -21,14 +21,15 @@ const Login = () => {
         password,
       });
 
-      const { jwtToken, username } = response.data;
+      const { jwtToken, user } = response.data;
 
       if (!jwtToken) {
         throw new Error("Invalid response from server: missing token");
       }
       // Store token and user information
       localStorage.setItem('token', jwtToken);
-      localStorage.setItem('user', JSON.stringify({ username }));
+      // localStorage.setItem('username', JSON.stringify({ username }));
+      localStorage.setItem('user', JSON.stringify({user}));
 
       alert('Login Successful!');
       window.location.href = '/dashboard'; // Redirect user after login

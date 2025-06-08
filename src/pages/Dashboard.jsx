@@ -4,7 +4,7 @@ import style from './home.module.css';
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
-  const API = 'http://localhost:8383/labour-link/get-users';
+  const API = 'http://localhost:8383/dashboard/get-users';
 
   const allUsers = async () => {
     const token = localStorage.getItem('token');
@@ -57,8 +57,7 @@ const Dashboard = () => {
                   <img
                     src={`data:image/jpeg;base64,${ele.userImage}`}
                     alt={`${ele.name}'s Profile`}
-                    width="100"
-                    height="100"
+                    style={{height: 100, width:100, borderRadius:"10%"}}
                   />
                 )}
               </td>
