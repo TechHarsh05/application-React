@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react';
 import Style from './signup.module.css'
 
 const SignUp = () => {
@@ -10,6 +10,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const formRef = useRef(null); // Reference to the entire form
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,14 +22,14 @@ const SignUp = () => {
       return;
     }
 
-    console.log({
-      // id,
-      name,
-      email,
-      password,
-      phone,
-      file
-    });
+    // console.log({
+    //   // id,
+    //   name,
+    //   email,
+    //   password,
+    //   phone,
+    //   file
+    // });
 
     const formData = new FormData();
     formData.append("user", JSON.stringify({ name, email, password, phone }));
@@ -46,6 +47,15 @@ const SignUp = () => {
 
       if (response.status === 200) {
         alert('User created successfully!');
+        setName(""); 
+        setFile(null);
+        setEmail(""); 
+        setPassword(""); 
+        setPhone("");
+        
+        if (formRef.current) {
+          formRef.current.reset();
+        }
       } else {
         alert('Something went wrong. Please try again.');
       }
@@ -72,9 +82,18 @@ const SignUp = () => {
 
         <input
           type="file"
-          onChange={(e) => setFile(e.target.files[0])}
+          onChange={(e) => setFile(e.target.files[0] || null)}
         /><br />
-
+        {file && (
+          <div style={{ margin: "10px 0" }}>
+            <img
+              src={URL.createObjectURL(file)}
+              alt="Preview"
+              width="150"
+              style={{ borderRadius: "8px" }}
+            />
+          </div>
+        )}
         <input
           type="email"
           placeholder="Enter Your Email"
@@ -92,7 +111,7 @@ const SignUp = () => {
         /><br />
 
         <input
-          type="Number"
+          type="number"
           placeholder="Enter Your Phone Number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}

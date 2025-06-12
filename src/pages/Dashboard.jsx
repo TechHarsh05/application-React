@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import style from './home.module.css';
+import { toast } from 'react-toastify';
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
@@ -26,6 +27,10 @@ const Dashboard = () => {
     } catch (error) {
       console.error('Error fetching users:', error);
       if (error.response && error.response.status === 401) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user')
+      }
+      if (error.response && error.response.status === 403) {
         alert('Session expired, please log in again');
         localStorage.clear();
         window.location.href = '/login';
@@ -35,11 +40,12 @@ const Dashboard = () => {
 
   useEffect(() => {
     allUsers();
+    // toast.success("users are gettring");
   }, []);
 
   return (
+    users==null?"loading...":
     <div id={style.users}>
-      <h1>Users</h1>
       <table id={style.table} border="1">
         <thead>
           <tr>

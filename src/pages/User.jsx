@@ -21,8 +21,6 @@ const User = () => {
 
   return (
     <div>
-        
-      {/* <h1>{username}</h1> */}
     </div>
   )
 }

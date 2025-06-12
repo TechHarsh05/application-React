@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import style from './login.module.css';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const Login = () => {
         email,
         password,
       });
-
+      
       const { jwtToken, user } = response.data;
 
       if (!jwtToken) {
@@ -33,7 +34,7 @@ const Login = () => {
 
       alert('Login Successful!');
       window.location.href = '/dashboard'; // Redirect user after login
-
+      
     } catch (error) {
       // Handle errors gracefully
       console.error("Login Error:", error);
@@ -43,6 +44,8 @@ const Login = () => {
       setLoading(false); // Stop the loading spinner
     }
   };
+      // toast.warn('hello')
+
 
   return (
     <div className={style.loginContainer}>
