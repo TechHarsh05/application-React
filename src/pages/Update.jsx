@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './update.module.css'
+import Style from './update.module.css'
 import axios from 'axios';
 
 const Update = () => {
@@ -60,7 +60,7 @@ const Update = () => {
   return (
     <>
       <div>
-        <div>
+        <div id={Style.updateImage}>
           <img
             src={`data:image/jpeg;base64,${user.userImage}`}
             alt='userImage'

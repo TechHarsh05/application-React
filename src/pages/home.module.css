@@ -1,11 +1,15 @@
-#table{
+/* #table{
     width: 100vw;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
+    
+} */
 
-}
-
-#users{
+/* #users{
+    
     text-align: center;
+} */
+#userData{
+    
+    display: flex; 
+    justify-content: center;
+    align-items: center;
 }

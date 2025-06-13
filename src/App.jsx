@@ -7,7 +7,7 @@ import Dashboard from './pages/Dashboard';
 import HomePage from './pages/HomePage';
 import Update from './pages/Update';
 import User from './pages/User';
-import Navbar from './pages/Navbar'
+import Navbar from './component/Navbar'
 import './App.css';
 
 const App = () => {

@@ -1,0 +1,38 @@
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 24px;
+  /* background: rgba(200, 218, 217, 0.683); */
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profileImage {
+  height: 150px;
+  width: 150px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.detail {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+#userImage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
