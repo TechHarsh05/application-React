@@ -53,7 +53,7 @@ const Dashboard = () => {
   return (
     users == null ? "loading..." :
       <>
-        <display
+        <section
           style={{
             display: 'flex',
             overflowX: 'auto',
@@ -101,7 +101,7 @@ const Dashboard = () => {
             < div > { ele.name }</div>
       </div >
           ))}
-        </display >
+        </section >
 
       </>
 
